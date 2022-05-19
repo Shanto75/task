@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch api using javascript</title>
+</head>
+
+<body>
+    <h1 style="text-align:center;">Fetch API Response using javascript</h1>
+    <div style="text-align:center;" id="data"></div>
+
+    <script>
+
+const display = (data) =>{
+    console.log(data.data);
+
+    for (i=0; i < Object.keys(data.data).length ; i++){
+        var id = data.data[i].id
+        var name = data.data[i].name
+        var email = data.data[i].email
+        var gender = data.data[i].gender
+        var status = data.data[i].status
+        
+        var newElement = document.createElement("p");
+        newElement.innerText = 'ID: '+ id +', Name: '+ name +', Email: '+ email +', Gender: '+ gender +', Status: '+ status;
+        document.getElementById('data').appendChild(newElement);
+    }
+
+    console.log(name);
+
+}
+        fetch("https://gorest.co.in/public/v1/users")
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("ERROR");
+                }
+            })
+            .then(data => {
+                display(data)
+            })
+            .catch((error) => console.error("FETCH ERROR:", error));
+    </script>
+</body>
+
+</html>
